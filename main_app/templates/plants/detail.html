@@ -9,7 +9,10 @@
       <p>Species: {{ plant.species }}</p>
       <p>Care: {{ plant.care }}</p>
     </div>
-  </a>
+    <div class="card-action">
+        <a class="waves-effect waves-light btn" href="{% url 'plants_update' plant.id %}">Edit</a>
+        <a class="waves-effect waves-light btn" href="{% url 'plants_delete' plant.id %}">Delete</a>
+      </div>
 </div>
 
 {% endblock %}
