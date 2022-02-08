@@ -3,6 +3,12 @@ from django.urls import reverse
 
 # Create your models here.
 
+WATERS = (
+  ('M', 'Morning'),
+  ('A', 'Afternoon'),
+  ('E', 'Evening')
+)
+
 class Plant(models.Model):
   name = models.CharField(max_length=100)
   species = models.CharField(max_length=100)
@@ -13,3 +19,17 @@ class Plant(models.Model):
 
   def get_absolute_url(self):
     return reverse('detail', kwargs={'plant_id': self.id})
+
+class Watering(models.Model):
+  date = models.DateField('Watering Date')
+  water = models.CharField(
+    max_length=1,
+    choices=WATERS,
+    default=WATERS[0][0]
+  )
+
+  plant = models.ForeignKey(Plant, on_delete=models.CASCADE)
+
+  def __str__(self):
+      return f"{self.get_water_display()} on {self.date}"
+
