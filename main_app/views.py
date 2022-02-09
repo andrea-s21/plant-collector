@@ -19,12 +19,16 @@ def plants_index(request):
 def plants_detail(request, plant_id):
     plant = Plant.objects.get(id=plant_id)
     watering_form = WateringForm()
+    category_ids = plant.categories.all().values_list('id')
+    categories = Category.objects.exclude(id__in=category_ids)
     return render(request, 'plants/detail.html', {
-        'plant': plant, 'watering_form': watering_form})
+        'plant': plant, 'watering_form': watering_form,
+        'categories': categories
+    })
 
 class PlantCreate(CreateView):
     model = Plant
-    fields = '__all__'
+    fields = ['name', 'species', 'care']
     success_url = '/plants/'
 
 class PlantUpdate(UpdateView):
@@ -60,5 +64,15 @@ class CategoryUpdate(UpdateView):
 class CategoryDelete(DeleteView):
   model = Category
   success_url = '/categories/'
+
+def assoc_category(request, plant_id, category_id):
+    plant = Plant.objects.get(id=plant_id)
+    plant.categories.add(category_id)
+    return redirect('detail', plant_id=plant_id)
+
+def remove_category(request, plant_id, category_id):
+  plant = Plant.objects.get(id=plant_id)
+  plant.categories.remove(category_id)
+  return redirect('detail', plant_id=plant_id)
 
 
