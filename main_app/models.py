@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 
@@ -13,6 +14,9 @@ class Plant(models.Model):
   name = models.CharField(max_length=100)
   species = models.CharField(max_length=100)
   care = models.TextField(max_length=250)
+
+  def watered_for_today(self):
+    return self.watering_set.filter(date=date.today()).count() >= len(WATERS)
 
   def __str__(self):
     return f'{self.name} ({self.id})'
