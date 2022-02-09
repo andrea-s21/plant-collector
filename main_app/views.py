@@ -1,8 +1,9 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Plant
+from django.views.generic import ListView, DetailView
+from .models import Plant, Category
 from .forms import WateringForm
-from django.shortcuts import render, redirect
+
 # Create your views here.
 
 def home(request):
@@ -41,5 +42,23 @@ def add_watering(request, plant_id):
         new_watering.plant_id = plant_id
         new_watering.save()
     return redirect('detail', plant_id=plant_id)
+
+class CategoryList(ListView):
+  model = Category
+
+class CategoryDetail(DetailView):
+  model = Category
+
+class CategoryCreate(CreateView):
+  model = Category
+  fields = '__all__'
+
+class CategoryUpdate(UpdateView):
+  model = Category
+  fields = ['name']
+
+class CategoryDelete(DeleteView):
+  model = Category
+  success_url = '/categories/'
 
 
