@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Plant Details</h1>
+<h1 class="grey-text text-darken-1">Plant Details</h1>
 <div class="row">
   <div class="col s6">
     <div class="card">
@@ -11,8 +11,8 @@
         <p>Care: {{ plant.care }}</p>
       </div>
       <div class="card-action">
-        <a class="waves-effect waves-light btn" href="{% url 'plants_update' plant.id %}">Edit</a>
-        <a class="waves-effect waves-light btn" href="{% url 'plants_delete' plant.id %}">Delete</a>
+        <a class="waves-effect waves-light btn green lighten-1" href="{% url 'plants_update' plant.id %}">Edit</a>
+        <a class="waves-effect waves-light btn green lighten-1" href="{% url 'plants_delete' plant.id %}">Delete</a>
       </div>
     </div>
 </div>
@@ -20,7 +20,7 @@
   <form action="{% url 'add_watering' plant.id %}" method="POST">
     {% csrf_token %}
     {{ watering_form.as_p }}
-    <input type="submit" class="btn" value="Add Watering">
+    <button class="waves-effect waves-light btn green lighten-1" type="submit" class="btn">Add Watering</button>
   </form>
   <br>
     {% if plant.watered_for_today %}
@@ -46,7 +46,7 @@
 <hr>
 <div class="row">
   <div class="col s6">
-    <h3>{{ plant.name }}'s Categories</h3>
+    <h3 class="grey-text text-darken-1">{{ plant.name }}'s Categories</h3>
     {% if plant.categories.count %}
       {% for category in plant.categories.all %}
         <div class="card">
@@ -58,7 +58,7 @@
           <div class="card-action">
             <form action="{% url 'remove_category' plant.id category.id %}" method="POST">
               {% csrf_token %}
-              <button type="submit" class="btn">Remove</button>
+              <button class="waves-effect waves-light btn green lighten-1" type="submit" class="btn">Remove</button>
             </form>
           </div>
         </div>
@@ -68,7 +68,7 @@
     {% endif %}
   </div>
   <div class="col s6">
-    <h3>Available Categories</h3>
+    <h3 class="grey-text text-darken-1">Available Categories</h3>
     {% if categories.count %}
       {% for category in categories.all %}
         <div class="card">
@@ -80,7 +80,7 @@
           <div class="card-action">
             <form action="{% url 'assoc_category' plant.id category.id %}" method="post">
               {% csrf_token %}
-              <button type="submit" class="btn">Add</button>
+              <button class="waves-effect waves-light btn green lighten-1" type="submit" class="btn">Add</button>
             </form>
           </div>
         </div>

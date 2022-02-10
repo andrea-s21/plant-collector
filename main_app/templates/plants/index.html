@@ -1,18 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Plant List</h1>
+
+<h1 class="grey-text text-darken-1">Plant List</h1>
 
 {% for plant in plants %}
-<div class="card">
+<div class="col s12 m2">
+<div class="card green lighten-1 z-depth-3">
   <a href="{% url 'detail' plant.id %}">
-    <div class="card-content">
-      <span class="card-title">{{ plant.name }}</span>
-      <p>Species: {{ plant.species }}</p>
-      <p>Care: {{ plant.care }}</p>
-    </div>
-  </a>
+    <div class="card-content white-text">
+        <span class="card-title">{{ plant.name }}</span>
+        <p>Species: {{ plant.species }}</p>
+        <p>Care: {{ plant.care }}</p>
+      </div>
+    </a>
+  </div>
 </div>
-{% endfor %}
+  {% endfor %}
 
 {% endblock %}
